@@ -1,0 +1,14 @@
+{
+  "name": "proteinslurp",
+  "version": "1.0.0",
+  "description": "Functions for reading protein files from disk and parsing their YAML schema",
+  "main": "proteinslurp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brandon Harvey",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^3.7.0"
+  }
+}
