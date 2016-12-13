@@ -16,7 +16,7 @@ function slurp(filename) {
 
 // Returns an object if the file exists, has content, and can be 
 // YAML-parsed; otherwise null
-function slurp_and_yaml_parse(filename, callback) {
+function slurp_yaml(filename) {
   let txt = slurp(filename);
   let o = null;
   if (txt) {
@@ -29,19 +29,18 @@ function slurp_and_yaml_parse(filename, callback) {
   return o;
 }
 
-// Calls back with an object if the file exists, has content, and can be 
+// Returns an object if the file exists, has content, and can be 
 // YAML-parsed; otherwise null
-function slurp_and_protein_parse(filename, callback) {
+function slurp_protein(filename) {
   let protein_txt = slurp(filename);
   if (protein_txt) {
-    let result = process_protein(protein_txt, callback);
-  } else {
-    callback(null);
+    return process_protein(protein_txt);
   }
+  return null;
 }
 
 
 exports.slurp = slurp;
-exports.slurp_and_yaml_parse = slurp_and_yaml_parse;
-exports.slurp_and_protein_parse = slurp_and_protein_parse;
+exports.slurp_yaml = slurp_yaml;
+exports.slurp_protein = slurp_protein;
 exports.process_protein = process_protein;

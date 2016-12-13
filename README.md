@@ -2,28 +2,24 @@
 
 Functions for reading protein files from disk and parsing their YAML schema
 
-
-
-### process_protein(protein, callback)
-
-Calls back with a JS object representing the protein. Returns a bool to indicate whether parsing was successful
-
-
 ### slurp(filename)
 
-Returns a string containing the file's contents if the file exists AND has readable text content; otherwise, null
+Returns a string containing the file's contents, if the file exists AND has readable text content; otherwise null.
 
 
-### slurp_and_yaml_parse(filename, callback)
+### slurp_yaml(filename)
 
-Returns a JS object if the file exists, has content, and can be 
-YAML-parsed; otherwise null
+Returns an object if the file exists, has content, and can be YAML-parsed; otherwise null.
 
 
-### slurp_and_protein_parse(filename, callback) 
+### slurp_protein(filename)
 
-Calls back with an object if the file exists, has content, and can be 
-YAML-parsed; otherwise null
+Returns an object if the file exists, has content, and can be YAML-parsed as a valid plasma protein; otherwise null. If protein parses OK but lacks descrips or ingests, you get the object anyway and a complaint on stderr.
+
+
+### process_protein(proteinstring)
+
+Parses string as single YAML document.  Returns an object, otherwise null.
 
 
 
