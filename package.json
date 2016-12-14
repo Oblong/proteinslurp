@@ -1,6 +1,6 @@
 {
   "name": "proteinslurp",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Functions for reading protein files from disk and parsing their YAML schema",
   "main": "proteinslurp.js",
   "scripts": {

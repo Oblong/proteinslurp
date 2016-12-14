@@ -5,6 +5,7 @@ const process_protein = require('./protein-yaml').process_protein;
 const process_protein_strictly = require('./protein-yaml').process_protein_strictly;
 const yaml = require('js-yaml'); // what plasma-js-bridge uses
 const fs = require('fs');
+const _ = require('lodash');
 
 // returns a string if the file exists AND has content; otherwise, null
 function slurp(filename) {
