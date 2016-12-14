@@ -3,6 +3,8 @@
 const yaml = require('js-yaml'); // what plasma-js-bridge uses
 const types = require('./slawtypes');
 const _ = require('lodash');
+var traverse = require('traverse');
+
 
 var SlawYamlType = new yaml.Type('tag:oblong.com,2009:slaw/protein', {
     kind: 'mapping'
@@ -80,9 +82,25 @@ var SLAW_SCHEMA = yaml.Schema.create([SlawYamlType, SlawF64Type, SlawF32Type, Sl
     SlawI32Type, VectYamlType, ArrayYamlType
 ]);
 
+
 // Parses string as single YAML document. 
-// Returns a JavaScript object or null on error
+// Returns a (plain old) JavaScript object or null on error
 function process_protein(proteinstring) {
+    let result = process_protein_strictly(proteinstring);
+    traverse(result).forEach(function(x) {
+        if (x instanceof types.Vect) {
+            this.update(x.toArray());
+        }
+        else if (x instanceof types.Array) {
+            this.update(x.toArray());
+        }
+    });
+    return result;
+}
+
+// like process_protein() but result may include specific types Vect 
+// and SlawArray (see slawtypes.js)
+function process_protein_strictly(proteinstring) {
     if (!_.isString(proteinstring) || proteinstring.length == 0)
         return null;
 
@@ -94,7 +112,7 @@ function process_protein(proteinstring) {
                 _.has(o, ['descrips']) &&
                 _.has(o, ['ingests']) &&
                 _.isArray(o.descrips))) {
-          console.error("Protein parsed from YAML but may be malformed.");
+            console.error("Protein parsed from YAML but may be malformed.");
         }
         return o;
     } catch (e) {
@@ -104,3 +122,4 @@ function process_protein(proteinstring) {
 }
 
 exports.process_protein = process_protein;
+exports.process_protein_strictly = process_protein_strictly;
